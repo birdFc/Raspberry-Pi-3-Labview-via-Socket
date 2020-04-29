@@ -1,5 +1,4 @@
-Raspberry Pi Code : server
-
+# Write your code here :-)
 import socket
 import numpy as np
 import time
@@ -10,14 +9,14 @@ y1 = np.float16(0.5*np.sin(t)*np.sin(2*t))
 i=0
 
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   
-host = ''  #or host = '192.168.16.134'                      
-port = 8089               
-server.bind((host,port))     
-server.listen(1)                  
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = ''  #or host = '192.168.16.134'
+port = 8089
+server.bind((host,port))
+server.listen(1)
 
-
-while True:
+try:
+  while True:
     s, addr = server.accept()
     cmnd = s.recv(4)
     print(cmnd)
@@ -28,10 +27,10 @@ while True:
         byt0 = st0.encode()
         byt1 = st1.encode()
         s.send(byt0)
-        s.send(byt1)        
-        
+        s.send(byt1)
+
     i += 1
     if i>=99:
-        i = 0  
-        
-s.close()
+        i = 0
+except KeyboardInterrupt:
+   s.close()
